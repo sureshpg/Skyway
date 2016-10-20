@@ -2,12 +2,12 @@
 <html style="height:100%;width:100%;margin:0px;padding:0px;">
 	<head>
 		<title>Minneapolis Skyway Map</title>
-		<script type="text/javascript" src="https://maps.google.com/maps/api/js"></script>
+		<!--script type="text/javascript" src="https://maps.google.com/maps/api/js"></script-->
 		<script type="text/javascript" src="https://www.skywaymyway.com/js/paths_final.js?v=1"></script>
 		<script type="text/javascript">
 			var map, maker, center, bluedot;
 			//create our map
-			function init() {
+			function initMap() {
 				if(typeof google.maps == "undefined"){
 					setTimeout("init()",1000);
 					errorLogger("Maps API yet to load");
@@ -16,9 +16,10 @@
 				//get center coords
 				center = new google.maps.LatLng(44.9736, -93.2718);
 				bluedot = {	url: 'https://maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
-										size: new google.maps.Size(22,22),
-										origin: new google.maps.Point(0,18),
-										anchor: new google.maps.Point(11,11) };
+						size: new google.maps.Size(22,22),
+						origin: new google.maps.Point(0,18),
+						anchor: new google.maps.Point(11,11)
+					  };
 				var myOptions = {
 					zoom: 20,
 					mapTypeId: google.maps.MapTypeId.SATELLITE,
@@ -63,8 +64,9 @@
 				return false;
 			}
 		</script>
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYAb0SIylppTqrgjM7vxODiT9yi1FkiQs&callback=initMap"></script>
 	</head>
-	<body onload="init();" style="height:100%;width:100%;margin:0px;padding:0px;">
+	<body style="height:100%;width:100%;margin:0px;padding:0px;">
 		<div id="map_canvas" style="height:100%;width:100%;margin:0px;padding:0px;"></div>
 	</body>
 </html>
