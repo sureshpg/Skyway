@@ -15,7 +15,8 @@
 				}
 				//get center coords
 				center = new google.maps.LatLng(44.9736, -93.2718);
-				bluedot = {	url: 'https://maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
+				bluedot = {
+						url: 'https://maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
 						size: new google.maps.Size(22,22),
 						origin: new google.maps.Point(0,18),
 						anchor: new google.maps.Point(11,11)
@@ -23,6 +24,7 @@
 				var myOptions = {
 					zoom: 20,
 					mapTypeId: google.maps.MapTypeId.SATELLITE,
+					style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
 					center: center
 				};
 				map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
@@ -66,7 +68,7 @@
 		</script>
 		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYAb0SIylppTqrgjM7vxODiT9yi1FkiQs&callback=initMap"></script>
 	</head>
-	<body style="height:100%;width:100%;margin:0px;padding:0px;">
+	<body onload="loadMap()" style="height:100%;width:100%;margin:0px;padding:0px;">
 		<div id="map_canvas" style="height:100%;width:100%;margin:0px;padding:0px;"></div>
 	</body>
 </html>
