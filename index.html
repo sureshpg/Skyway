@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html style="height:100%;width:100%;margin:0px;padding:0px;">
+	<head>
+		<title>Minneapolis Skyway Map</title>
+		<script type="text/javascript" src="https://maps.google.com/maps/api/js"></script>
+		<script type="text/javascript" src="https://www.skywaymyway.com/js/paths_final.js?v=1"></script>
+		<script type="text/javascript">
+			var map, maker, center, bluedot;
+			//create our map
+			function init() {
+				if(typeof google.maps == "undefined"){
+					setTimeout("init()",1000);
+					errorLogger("Maps API yet to load");
+					return;
+				}
+				//get center coords
+				center = new google.maps.LatLng(44.9736, -93.2718);
+				bluedot = {	url: 'https://maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
+										size: new google.maps.Size(22,22),
+										origin: new google.maps.Point(0,18),
+										anchor: new google.maps.Point(11,11) };
+				var myOptions = {
+					zoom: 20,
+					mapTypeId: google.maps.MapTypeId.SATELLITE,
+					center: center
+				};
+				map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+				marker = new google.maps.Marker({
+					clickable: false,
+					shadow: null,
+					zIndex: 999,
+					map: map
+				});
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(setMyLocation, errorLogger);
+				} else {
+					errorLogger("Geo Location not available!");
+				}
+				createPaths();
+			}
+			
+			function setMyLocation(pos) {
+				var myLocation = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+				marker.setPosition(myLocation);
+				map.setCenter(myLocation);
+				trackLocation();
+			}
+			
+			function trackLocation() {
+				var watchId = navigator.geolocation.watchPosition(moveMyLocation, errorLogger);
+			}
+			
+			function moveMyLocation(pos) {
+				var myLocation = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+				marker.setPosition(myLocation);
+				map.panTo(myLocation);
+			}
+			
+			function errorLogger(error) {
+				if(error.message) console.log(error.message);
+				else console.log(error);
+				marker.setPosition(center);
+				return false;
+			}
+		</script>
+	</head>
+	<body onload="init();" style="height:100%;width:100%;margin:0px;padding:0px;">
+		<div id="map_canvas" style="height:100%;width:100%;margin:0px;padding:0px;"></div>
+	</body>
+</html>
